@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 @CucumberContextConfiguration
 public class CarStepDefinitions {
-
+ String hej;
     Car car = new Car();
 
     @Given("the car engine is running")
