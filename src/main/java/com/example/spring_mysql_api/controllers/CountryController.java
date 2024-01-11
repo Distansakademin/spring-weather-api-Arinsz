@@ -26,13 +26,13 @@ public class CountryController {
     public ResponseEntity<ApiResponse<Country>> createCountry(@RequestBody Country country) {
 
         ApiResponse<Country> response = countryService.createCountry(country);
-
         if (response.getData() != null) {
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @GetMapping("/countries/{id}")
     public ResponseEntity<ApiResponse<Country>> getCountryById(@PathVariable Long id) {
@@ -60,6 +60,7 @@ public class CountryController {
 
     @PutMapping("/countries/{id}")
     public ResponseEntity<ApiResponse<Country>> updateCountry(@PathVariable Long id, @RequestBody Country country) {
+
         ApiResponse<Country> response = countryService.updateCountry(id, country);
 
         if (response.getData() != null) {
@@ -67,7 +68,6 @@ public class CountryController {
         } else {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping("/countries/{id}")
@@ -76,14 +76,10 @@ public class CountryController {
         HttpStatus httpStatus;
 
         if (response.getErrorMessage() == null) {
-
             httpStatus = HttpStatus.OK;
-
         } else {
-
             httpStatus = HttpStatus.NOT_FOUND;
         }
-
         return new ResponseEntity<>(response, httpStatus);
     }
 

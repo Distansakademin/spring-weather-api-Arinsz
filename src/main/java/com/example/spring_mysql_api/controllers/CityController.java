@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class CityController {
 
-    private CityService cityService;
+    private final CityService cityService;
 
 
     @Autowired

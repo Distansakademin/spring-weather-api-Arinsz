@@ -37,7 +37,6 @@ public class WeatherService {
     public ApiResponse<Weather> generateFakeWeather() {
 
         try {
-
             String[] conditions = {"Sunny", "Cloudy", "Rainy", "Snowy"};
             String randomCondition = conditions[new Random().nextInt(conditions.length)];
 
