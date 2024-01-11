@@ -97,6 +97,19 @@ public class CountryController {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/{country}/cities")
+    public ResponseEntity<ApiResponse<List<City>>> getCitiessInCountry(@PathVariable String country) {
+        ApiResponse<List<City>> response = countryService.getCitiesInCountry(country);
+
+        if (response.getData() != null) {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+}
+
+
 }
 
 
