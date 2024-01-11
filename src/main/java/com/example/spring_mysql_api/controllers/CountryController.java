@@ -1,4 +1,5 @@
 package com.example.spring_mysql_api.controllers;
+
 import com.example.spring_mysql_api.entities.City;
 import com.example.spring_mysql_api.entities.Country;
 import com.example.spring_mysql_api.services.CountryService;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -97,6 +97,7 @@ public class CountryController {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
+
 
 }
 
