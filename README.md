@@ -12,7 +12,11 @@ Det här projektet är en Spring Boot-baserad webbapplikation som hanterar infor
 
 ## Designbeslut
 
-1. **Spring Boot:** bra för att snabbt och enkelt utveckla Spring-baserade applikationer.
+1. **Mappar och struktur:** Jag har valt att ha Weather och ApiResponse i Utilitys mappen då de inte är Entitys som ska in i databasen. Jag har valt att ha en separat mapp för utilitysTest
+för att ha bättre översikt och struktur vilket kan vara bra om man skulle ha många fler klasser men vill utveckla någon mer Utility så vet man var testerna finns instället för att leta fram de bland de andra.
+
+
+2. **Spring Boot:** bra för att snabbt och enkelt utveckla Spring-baserade applikationer.
 
 - **Spring Boot DevTools:** Utvecklarverktyg som ger en förbättrad utvecklingsupplevelse.
 - **Spring Web (Spring MVC):** Används för att bygga webbapplikationer
@@ -116,12 +120,6 @@ ___
 - Password: root
 - Driver Class: com.mysql.cj.jdbc.Driver
 
-## Dependencies
-
-- Spring Boot
-- Spring Data JPA
-- MySQL Connector
-- Maven
 
 ### How to Test API Endpoints
 
