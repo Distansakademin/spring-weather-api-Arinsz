@@ -14,7 +14,7 @@ Det här projektet är en Spring Boot-baserad webbapplikation som hanterar infor
 
 1. **Mappar och struktur:** Jag har valt att ha Weather och ApiResponse i Utilitys mappen då de inte är Entitys som ska in i databasen. Jag har valt att ha en separat mapp för utilitysTest
 för att ha bättre översikt och struktur vilket kan vara bra om man skulle ha många fler klasser men vill utveckla någon mer Utility så vet man var testerna finns instället för att leta fram de bland de andra.
-
+ApiResponse tyckte jag var lämpligt för att kunna skriva meddelanden som är mer specifika ifall det blir något fel när man kommunicerar med databasen. 
 
 2. **Spring Boot:** bra för att snabbt och enkelt utveckla Spring-baserade applikationer.
 
@@ -52,7 +52,7 @@ ___
 ## Problem och Lösningar
 
 ### Problem
-1. **Docker:** Docker var svårt då jag försökte ha igång det samtidigt som jag var ansluten till MySql, jag lyckades få till det med dockercompose docker build --network men var osäker på om det faktiskt fungerade eller om det endast var nätverket som visades i docker appen. 
+1. **Docker:** Docker var svårt då jag försökte ha min SQL server och docker anslutna tillsammans, jag lyckades få till det med dockercompose och docker build --network men var osäker på om det faktiskt fungerade eller om det endast var nätverket som visades i docker appen. 
 2. **Undantagshantering:** Behovet av att hantera olika typer av undantag och kommunicera tydliga felmeddelanden till användare. Jag skapade en ApiResponse för detta och det var ganska utmanande då den behövdes i många sammanhang. 
 3. **Warnings:** fick en del warnings och fel som jag hade svårt att förstå då informationen inte är lika specific i vart felet ligger som i vanliga TDD tester. 
 4. **UML-Diagram:** Har googlat en del och kollat youtube videos, har fortfarande lite svårt att avgöra vilket håll pilarna ska riktas åt baserat på vad, men antar att det är en sak man lär sig av erfarenhet ganska snabbt.  
@@ -73,8 +73,8 @@ ___
 
 1. **Säkerhet:**.
 2. **Logging:**
-3. **Frontend-Applikation:** koppla den med min Spring Boot-applikation via de API-endpoints jag skapat. Alternativt skapa något som liknar en miniräknare men där det står t.ex Create city på en knapp och att resultaten visas en ruta. 
-
+3. **Frontend-Applikation React:** koppla den med min Spring Boot-applikation via de API-endpoints jag skapat. 
+3. **Swagger-dokumentation::**  för att generera automatiserad dokumentation.
 
 
 
