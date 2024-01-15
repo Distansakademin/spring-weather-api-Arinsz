@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/weather")
+@RequestMapping("/api")
 public class WeatherController {
 
     private WeatherService weatherService;
@@ -22,7 +22,7 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("{city_id}")
+    @GetMapping("/weather/{city_id}")
     public ResponseEntity<ApiResponse<Weather>> getWeatherByCityId(@PathVariable Long city_id) {
         ApiResponse<Weather> response = weatherService.getWeatherByCityId(city_id);
 
