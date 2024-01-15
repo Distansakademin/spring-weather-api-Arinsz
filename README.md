@@ -3,7 +3,9 @@
 ## Projektöversikt
 
 ### Sammanfattning
-Det här projektet är en Spring Boot-baserad webbapplikation som hanterar information om länder, städer och väder. länder och städer
+Det här projektet är en Spring Boot-baserad webbapplikation som hanterar information om länder, städer och väder. länder och städer.
+En viktig aspekt av projektet är användningen av Docker för att underlätta hanteringen av både applikations- och databasmiljön.
+Genom att containerisera applikationen med Docker kan utvecklare enkelt köra applikationen på olika miljöer utan att oroa sig för kompatibilitetsproblem.
 
 ### Mål med projektet
 1. **Hantera länder och städer:** Ge användare möjlighet att skapa, hämta, uppdatera och ta bort information om länder och städer.
@@ -97,7 +99,7 @@ ___
 
 **Erfarenhet:** För mig är erfarenheten jag får när jag stöter på problem och hinder något jag värdesätter och ofta tänker på medans jag kodar. Jag känner att den inställningen har hjälpt mig mycket i detta projekt. 
 
-## Förbättringspotential
+### Förbättringspotential
 
 1. **Säkerhet:**.
 2. **Logging:**
@@ -114,13 +116,13 @@ ___
 
 
 
-# Spring Boot REST API - Countries and Cities
+## Spring Boot REST API - Countries and Cities
 
-## URL
+#### URL
 
 - http://localhost:8080/
 
-## Countries 
+### Countries 
 
 - **Create Country:** `POST` - http://localhost:8080/api/countries/create
 - **Read (one Country):** `GET` - http://localhost:8080/api/countries/{id}
@@ -129,7 +131,7 @@ ___
 - **Delete Country:** `DELETE` - http://localhost:8080/api/countries/{id}
 - **Get All Cities in Country:** GET - http://localhost:8080/api/{country}/cities
 
-## Cities 
+### Cities 
 
 - **Create City:** `POST` - http://localhost:8080/api/cities/create/{CountryId}
 - **Read (one City):** `GET` - http://localhost:8080/api/cities/{id}
@@ -137,11 +139,11 @@ ___
 - **Update City:** `PUT` - http://localhost:8080/api/cities/{id}
 - **Delete City:** `DELETE` - http://localhost:8080/api/cities/{id}
 
-## Weather 
+### Weather 
 
 - **Get Weather by City ID:** `GET` - http://localhost:8080/api/weather/{city_id}
 
-## Databas Config
+### Databas Config
 
 - Databas URL: jdbc:mysql://localhost:3306/spring_mysql_docker
 - Användarnamn: root
@@ -149,8 +151,9 @@ ___
 - Drivrutin : com.mysql.cj.jdbc.Driver
 
 
-### För Testa API Endpoints
+#### För Testa API Endpoints
 
 - Använd verktyg som Postman för att skicka HTTP-förfrågningar.
 - Använd MySQL för att starta en SQL server.
 
+#### / Arin Sarafraz
