@@ -99,12 +99,12 @@ ___
 
 **Erfarenhet:** För mig är erfarenheten jag får när jag stöter på problem och hinder något jag värdesätter och ofta tänker på medans jag kodar. Jag känner att den inställningen har hjälpt mig mycket i detta projekt. 
 
-### Förbättringspotential
+### Projektets Framtid och förbättringspotential
 
-1. **Säkerhet:**.
-2. **Logging:**
-3. **Frontend-Applikation React:** koppla den med min Spring Boot-applikation via de API-endpoints jag skapat. 
-3. **Swagger-dokumentation::**  för att generera automatiserad dokumentation.
+1. **Säkerhet:** Implementera strikt inputvalidering för att förhindra SQL-injektioner.
+3. **Frontend-Applikation React:**  implementera en användarvänlig frontend med React. Vilket ger användare möjlighet att interagera med mitt API genom en visuellt gränssnitt.
+4. **Swagger-dokumentation::**  för att generera automatiserad dokumentation.
+5. **Logging och Övervakning:** Förbättra loggingen för att underlätta felsökning och övervakning av systemets prestanda. 
 
 
 
@@ -113,7 +113,6 @@ ___
 
 
 ---
-
 
 
 ## Spring Boot REST API - Countries and Cities
