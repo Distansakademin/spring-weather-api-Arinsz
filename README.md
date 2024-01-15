@@ -13,7 +13,7 @@ Det här projektet är en Spring Boot-baserad webbapplikation som hanterar infor
 ## Designbeslut
 
 1. **Mappar och struktur:** Jag har valt att ha Weather och ApiResponse i Utilitys mappen då de inte är Entitys som ska in i databasen. Jag har valt att ha en separat mapp för utilitysTest
-för att ha bättre översikt och struktur vilket kan vara bra om man skulle ha många fler klasser men vill utveckla någon mer Utility så vet man var testerna finns instället för att leta fram de bland de andra.
+för att ha bättre översikt och struktur vilket kan vara bra om man skulle ha många fler klasser men vill utveckla någon mer Utility så vet man var testerna finns istället för att leta fram de bland de andra.
 ApiResponse tyckte jag var lämpligt för att kunna skriva meddelanden som är mer specifika ifall det blir något fel när man kommunicerar med databasen. 
 
 2. **Spring Boot:** bra för att snabbt och enkelt utveckla Spring-baserade applikationer.
@@ -28,7 +28,35 @@ ApiResponse tyckte jag var lämpligt för att kunna skriva meddelanden som är m
 2. **MySQL-databas:** MySQL databas som passar bra med Spring och Hibernate.
 
 3. **Maven:** Maven används för att hantera projektets beroenden och byggprocess.
+4. 
+---
 
+## Databasstruktur
+
+### Country
+- `id` (Long): Unik identifierare för landet.
+- `countryName` (String): Namnet på landet.
+- `cities` (List<City>): En lista med städer som tillhör landet.
+
+### City
+- `id` (Long): Unik identifierare för staden.
+- `cityName` (String): Namnet på staden.
+- `country` (Country): Referens till landet som staden tillhör.
+
+### Weather
+- `condition` (String): Väderförhållandet (t.ex., Sunny, Cloudy, Rainy).
+- `temperature` (int): Temperaturen för vädret.
+- `city` (City): Referens till staden för vilken vädret gäller.
+
+## Databaskonfiguration
+
+- Databas-URL: jdbc:mysql://localhost:3306/spring_mysql_docker
+- Användarnamn: root
+- Lösenord: root
+- Drivrutinklass: com.mysql.cj.jdbc.Driver
+
+
+---
 
 ## UML & Modeller
 
@@ -41,7 +69,7 @@ ___
 - **UML-EdrawMax:**  Jag har även gjort flera olika UML diagram  
 
 - **Package diagram:** visar de olika paketen (packages) i mitt projekt och hur de är organiserade.
-- **Use Case diagram:** beskriver de olika användningsfallen eller scenarierna i min applikation,  Det visar hur olika aktörer (användare eller andra system) interagerar med systemet för att uppnå specifika mål
+- **Use Case diagram:** beskriver de olika användningsfallen eller scenarierna i min applikation, Det visar hur olika aktörer eller andra system interagerar med systemet för att uppnå specifika mål.
 - **Class diagram:** Klassdiagrammet visar de olika klasserna och deras relationer.
 
 ![EdrawMax](https://github.com/Distansakademin/spring-weather-api-Arinsz/blob/development/Spring-weather-api-Edraw-UML.jpg)
@@ -88,11 +116,11 @@ ___
 
 # Spring Boot REST API - Countries and Cities
 
-## Base URL
+## URL
 
 - http://localhost:8080/
 
-## Countries Resource
+## Countries 
 
 - **Create Country:** `POST` - http://localhost:8080/api/countries/create
 - **Read (one Country):** `GET` - http://localhost:8080/api/countries/{id}
@@ -101,7 +129,7 @@ ___
 - **Delete Country:** `DELETE` - http://localhost:8080/api/countries/{id}
 - **Get All Cities in Country:** GET - http://localhost:8080/api/{country}/cities
 
-## Cities Resource
+## Cities 
 
 - **Create City:** `POST` - http://localhost:8080/api/cities/create/{CountryId}
 - **Read (one City):** `GET` - http://localhost:8080/api/cities/{id}
@@ -109,19 +137,20 @@ ___
 - **Update City:** `PUT` - http://localhost:8080/api/cities/{id}
 - **Delete City:** `DELETE` - http://localhost:8080/api/cities/{id}
 
-## Weather Resource
+## Weather 
 
 - **Get Weather by City ID:** `GET` - http://localhost:8080/api/weather/{city_id}
 
-## Database Configuration
+## Databas Config
 
-- Database URL: jdbc:mysql://localhost:3306/spring_mysql_docker
-- Username: root
-- Password: root
-- Driver Class: com.mysql.cj.jdbc.Driver
+- Databas URL: jdbc:mysql://localhost:3306/spring_mysql_docker
+- Användarnamn: root
+- Lösenord: root
+- Drivrutin : com.mysql.cj.jdbc.Driver
 
 
-### How to Test API Endpoints
+### För Testa API Endpoints
 
-- Use tools like Postman to send HTTP requests to the provided endpoints.
-- Refer to the API documentation for each endpoint for request and response details.
+- Använd verktyg som Postman för att skicka HTTP-förfrågningar.
+- Använd MySQL för att starta en SQL server.
+
