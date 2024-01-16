@@ -16,5 +16,5 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Build with Maven
-        run: mvn -B package -- pom.xml
+        run: mvn -B package
 
