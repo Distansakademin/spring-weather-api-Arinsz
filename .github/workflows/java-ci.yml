@@ -9,6 +9,6 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temurin' # eller annan distribution som stöder Java 21
+          distribution: 'temurin'
       - name: Build with Maven
         run: mvn -B package --file pom.xml
