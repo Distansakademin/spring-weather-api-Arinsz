@@ -23,7 +23,7 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 
 1. **Mappar och struktur:** För att strukturera koden och öka översikten har jag valt att placera klasser som inte är direkta entiteter i databasen, såsom Weather och ApiResponse, i mappen "Utilitys". Det underlättar för utvecklare att hitta och hantera icke-entitetsklasser. Dessutom har jag skapat en separat mapp, "utilitysTest", för testklasser relaterade till utility-klassen. För att underlätta framtida utveckling och underhåll, särskilt om fler utility-klasser läggs till i projektet.
 
-ab
+
 
 2. **ApiResponse:** ApiResponse-klassen används för att inkludera mer specifika felmeddelanden vid kommunikation med databasen. Det gör det lättare att skicka information tillbaka till klienten och underlättar felsökning.
 
