@@ -193,8 +193,8 @@ ___
 - Använd MySQL för att starta en SQL server.
 
 
-#### <u>/ Arin Sarafraz</u>
+#### <u>Skapat av: Arin Sarafraz </u>
 
 
 
-[läs mer om mig ](./about-me.md)
+### [**Klicka här för att läsa mer om mig** ](./about-me.md)
