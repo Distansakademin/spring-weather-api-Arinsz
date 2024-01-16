@@ -173,18 +173,13 @@ ___
 
 - **Get Weather by City ID:** `GET` - http://localhost:8080/api/weather/{city_id}
 
-### Databas Config
-
-- Databas URL: jdbc:mysql://localhost:3306/spring_mysql_docker
-- Användarnamn: root
-- Lösenord: root
-- Drivrutin : com.mysql.cj.jdbc.Driver
 
 
 #### För Testa API Endpoints
 
 - Använd verktyg som Postman för att skicka HTTP-förfrågningar.
 - Använd MySQL för att starta en SQL server.
+- Ändra application.properties datasource, till inställningar som fungerar för SQL servern.
 
 
 #### <u>Skapat av: Arin Sarafraz </u>
