@@ -88,7 +88,7 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 
 **Klassdiagram - IntelliJ :** Jag har valt att göra ett klassdiagram i IntelliJ. Det är ett bra verktyg för att förstå strukturen i sin kod.
 
-![IntelliJ](https://github.com/Distansakademin/spring-weather-api-Arinsz/blob/development/Spring-weather-api-IntelliJClassdiagram-UML.jpg)
+![IntelliJ](https://github.com/Distansakademin/spring-weather-api-Arinsz/blob/main/Intellij_UML_CLASS_DIAGRAM.jpg)
 
 
 
