@@ -5,6 +5,7 @@
 ## Projektöversikt
 
 ### Sammanfattning
+
 Det här projektet är en Spring Boot-baserad webbapplikation som hanterar information om länder, städer och väder. länder och städer.
 En viktig aspekt av projektet är användningen av Docker för att underlätta hanteringen av både applikations- och databasmiljön.
 Genom att containerisera applikationen med Docker kan man köra applikationen utan att oroa sig för kompatibilitetsproblem.
@@ -19,13 +20,31 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 
 3. **Användarvänlighet:** Utveckla tjänster för att förenkla datahantering.
 
+
+4. **Continuous Integration:** Använda Github Actions för att automatiskt köra tester.
+
+
+5. **Docker:** för att containerisera applikationen.
+
+
+6. **UML:** skapa olika UML diagram för att modellera applikationen.
+
+
+7. **BDD, TDD:** användarberättelser och BDD-testscenarion. TDD för att skapa JUnit-testfall.
+
+
+8. **Exception handling** felhantering av kod (Apiresponse)
+
+
+9. **MySql** använda MySQL som databas för att möjliggöra interaktion mellan Restcontrollers och lagrad data.
+
 ## Designbeslut
 
 1. **Mappar och struktur:** För att strukturera koden och öka översikten har jag valt att placera klasser som inte är direkta entiteter i databasen, såsom Weather och ApiResponse, i mappen "Utilitys". Det underlättar för utvecklare att hitta och hantera icke-entitetsklasser. Dessutom har jag skapat en separat mapp, "utilitysTest", för testklasser relaterade till utility-klassen. För att underlätta framtida utveckling och underhåll, särskilt om fler utility-klasser läggs till i projektet.
 
-a
 
-2. **ApiResponse:** ApiResponse-klassen används för att inkludera mer specifika felmeddelanden vid kommunikation med databasen. Det gör det lättare att skicka information tillbaka till klienten och underlättar felsökning.
+
+2. **ApiResponse:** ApiResponse-klassen används för felhantering där man kan inkludera specifika felmeddelanden vid kommunikation med databasen. Det gör det lättare att skicka information tillbaka till klienten och underlättar felsökning.
 
 
 3. **MySQL-databas:** MySQL databas som passar fungerar bra med Spring och Hibernate.
