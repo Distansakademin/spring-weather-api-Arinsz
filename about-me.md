@@ -1,5 +1,7 @@
 # Arin Sarafraz
 
+![Bild på mig](https://github.com/Distansakademin/spring-weather-api-Arinsz/blob/main/Arinbild.jpg))
+
 Jag heter Arin Sarafraz och studerar till Cloudutvecklare AWS. Här kan du läsa mer om mig.
 
 ## Utbildning
