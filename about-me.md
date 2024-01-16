@@ -7,11 +7,13 @@ Jag heter Arin Sarafraz och studerar till Cloudutvecklare AWS. Här kan du läsa
 ## Utbildning
 - **Jensens Yrkeshögskola, Cloudutvecklare AWS**
 - **St eriks gymnasium, El tekniker**
-- **Självlärd inom IT**
+- **Självlärd inom IT och läst enstaka nätverkskurser**
 
 ## Erfarenhet
 
-- Jag började bygga ihop datorer när jag var ung och redan där växte mitt intresse. Jag har stort intresse för både hårdvara/mjukvara/nätverk inom IT.
+- Jag började med att beställa datordelar och bygga ihop datorer när jag var ung och tyckte det var väldigt spännande att lära sig allt om hur datorer är byggda och vilka hårdvaror som passar bäst med varandra. 
+- Jag har stort intresse för både hårdvara/mjukvara/nätverk/spel inom IT.
+- Jag har läst Nätverksteknik hos Nti-Skolan via distans där jag fick lära mig om Routing och Switching, Nätverkssäkerhet, subnetting och nätverksprotokoll.
 
 
 ## Kompetenser
