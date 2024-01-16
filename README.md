@@ -33,10 +33,10 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 7. **BDD, TDD:** användarberättelser och BDD-testscenarion. TDD för att skapa JUnit-testfall.
 
 
-8. **Exception handling** felhantering av kod (Apiresponse)
+8. **Exception handling:** felhantering av kod (Apiresponse)
 
 
-9. **MySql** använda MySQL som databas för att möjliggöra interaktion mellan Restcontrollers och lagrad data.
+9. **MySql:** använda MySQL som databas för att möjliggöra interaktion mellan Restcontrollers och lagrad data.
 
 ## Designbeslut
 
@@ -80,12 +80,6 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 - `temperature` (int): Temperaturen för vädret.
 - `city` (City): Referens till staden för vilken vädret gäller.
 
-## Databaskonfiguration
-
-- Databas-URL: jdbc:mysql://localhost:3306/spring_mysql_docker
-- Användarnamn: root
-- Lösenord: root
-- Drivrutinklass: com.mysql.cj.jdbc.Driver
 
 
 ---
