@@ -6,9 +6,9 @@
 
 ### Sammanfattning
 
-Det här projektet är en Spring Boot-baserad webbapplikation som hanterar information om länder, städer och väder. länder och städer.
-En viktig aspekt av projektet är användningen av Docker för att underlätta hanteringen av både applikations- och databasmiljön.
-Genom att containerisera applikationen med Docker kan man köra applikationen utan att oroa sig för kompatibilitetsproblem.
+Det här projektet är en Spring Boot-baserad webbapplikation som hanterar information om länder, städer och väder.
+En viktig aspekt av projektet är användningen av Docker för enklare hantering av både applikationen och databasmiljön.
+Genom att containerisera applikationen med Docker kan man köra applikationen utan kompatibilitetsproblem.
 
 ### Mål med projektet
 
@@ -36,12 +36,11 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 8. **Exception handling:** felhantering av kod (Apiresponse)
 
 
-9. **MySql:** använda MySQL som databas för att möjliggöra interaktion mellan Restcontrollers och lagrad data.
+9. **MySql:** använda MySql som databas för att möjliggöra interaktion mellan Restcontrollers och lagrad data.
 
 ## Designbeslut
 
 1. **Mappar och struktur:** För att strukturera koden och öka översikten har jag valt att placera klasser som inte är direkta entiteter i databasen, såsom Weather och ApiResponse, i mappen "Utilitys". Det underlättar för utvecklare att hitta och hantera icke-entitetsklasser. Dessutom har jag skapat en separat mapp, "utilitysTest", för testklasser relaterade till utility-klassen. För att underlätta framtida utveckling och underhåll, särskilt om fler utility-klasser läggs till i projektet.
-
 
 
 2. **ApiResponse:** ApiResponse-klassen används för felhantering där man kan inkludera specifika felmeddelanden vid kommunikation med databasen. Det gör det lättare att skicka information tillbaka till klienten och underlättar felsökning.
@@ -139,6 +138,14 @@ ___
 
 
 
+### Vad jag vill bli bättre på: 
+
+Jag hade svårt för att se hur jag skulle strukturera projektet. Jag strävar oftast efter att se helheten för att kunna utföra det jag vill på ett effektivt och korrekt sätt.
+Med detta projekt var en av utmaningarna att separera olika ansvarsområden. Services som använder repositories för att skapa metoder som man sedan använder i controllers.
+Detta gjorde det svårare med UML ritningar i början.
+
+I tidigare lektioner, har vi har använt "refactor" och "extract method" för att bättre strukturera kod.
+Man kan använda detta koncept till en större projektstruktur (Single Responsibility Principle), jag ska tänka mer i den banan framöver. 
 
 
 
