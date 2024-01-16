@@ -103,7 +103,7 @@ Genom att containerisera applikationen med Docker kan man köra applikationen ut
 
 - **Class diagram:** Klassdiagrammet visar de olika klasserna och deras relationer.
 
-![EdrawMax](https://github.com/Distansakademin/spring-weather-api-Arinsz/blob/development/Spring-weather-api-Edraw-UML.jpg)
+![EdrawMax](https://github.com/Distansakademin/spring-weather-api-Arinsz/blob/development/Edraw_UML_DIAGRAMS.jpg)
 
 ___
 
