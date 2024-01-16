@@ -1,5 +1,7 @@
 # Spring MySQL API
 
+
+
 ## Projektöversikt
 
 ### Sammanfattning
@@ -172,5 +174,8 @@ ___
 - Använd MySQL för att starta en SQL server.
 
 
+#### <u>/ Arin Sarafraz</u>
 
-#### <u>Arin Sarafraz</u>
+
+
+[läs mer om mig ](./about-me.md)
