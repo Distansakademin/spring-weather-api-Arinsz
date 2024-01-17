@@ -1,5 +1,3 @@
-# Spring MySQL API
-
 
 
 ## Projektöversikt
