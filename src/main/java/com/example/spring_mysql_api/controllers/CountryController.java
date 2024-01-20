@@ -18,7 +18,7 @@ public class CountryController {
     private final CountryService countryService;
 
     @Autowired
-    public CountryController(CountryService countryService) {
+    private CountryController(CountryService countryService) {
         this.countryService = countryService;
     }
 
