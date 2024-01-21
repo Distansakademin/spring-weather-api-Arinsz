@@ -14,6 +14,9 @@ public class City {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
+    private String cityName;
+
 
     public City() {
     }
@@ -45,7 +48,6 @@ public class City {
         this.country = country;
     }
 
-    private String cityName;
 
 
     public Long getId() {
