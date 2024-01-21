@@ -1,34 +1,26 @@
 package com.example.spring_mysql_api;
-import com.example.spring_mysql_api.controllers.CountryController;
 import com.example.spring_mysql_api.entities.City;
 import com.example.spring_mysql_api.utilitys.ApiResponse;
 import com.example.spring_mysql_api.services.*;
 import com.example.spring_mysql_api.controllers.CityController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.test.web.servlet.MockMvc;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import java.util.*;
 
-@WebMvcTest(CityController.class)
+@SpringBootTest
 public class CityControllerTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Mock
+    CityService cityService;
 
-    @MockBean
-    private CityService cityService;
+    @InjectMocks
+    CityController cityController;
 
-    @Autowired
-    private CityController cityController;
 
     @Test
     public void testCreateCity() {

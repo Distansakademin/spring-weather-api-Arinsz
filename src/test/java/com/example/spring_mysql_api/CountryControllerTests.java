@@ -2,33 +2,25 @@ package com.example.spring_mysql_api;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import com.example.spring_mysql_api.entities.*;
 import com.example.spring_mysql_api.utilitys.ApiResponse;
 import com.example.spring_mysql_api.services.*;
 import com.example.spring_mysql_api.controllers.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
-@WebMvcTest(CountryController.class)
+@SpringBootTest
 public class CountryControllerTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Mock
+    private CountryService countryService;
 
-    @MockBean
-    private CountryService countryService; // Mocked CountryService
-
-    @Autowired
+    @InjectMocks
     private CountryController countryController;
 
 
