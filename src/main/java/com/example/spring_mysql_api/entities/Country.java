@@ -5,6 +5,9 @@ import java.util.List;
 @Entity
 public class Country {
 
+
+
+    @Column(unique = true) // unique constraint so duplicate countries can't be created.
     private String countryName;
 
 
