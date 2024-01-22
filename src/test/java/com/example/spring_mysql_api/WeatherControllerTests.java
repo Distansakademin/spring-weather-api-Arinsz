@@ -7,47 +7,44 @@ import com.example.spring_mysql_api.utilitys.Weather;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class WeatherControllerTests {
 
-    @Mock
+    @MockBean
     private WeatherService weatherService;
 
-
-    @InjectMocks
-    private WeatherController weatherController;
-
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    public void testGetWeatherByCityId() {
-
+    public void testGetWeatherByCityId() throws Exception {
         // Given
-        Long cityId = 1L;
-        City city = new City(cityId, "Stockholm");
-        when(weatherService.getWeatherByCityId(cityId)).thenReturn
-                (new ApiResponse<>(new Weather("Sunny", 25), null));
+        Long testCityId = 1L;
+        Weather testWeather = new Weather("Sunny", 30);
+
+        // Mock the service response for getWeatherByCityId
+        when(weatherService.getWeatherByCityId(testCityId)).thenReturn(new ApiResponse<>(testWeather, null));
 
         // When
-        ApiResponse<Weather> response = weatherService.getWeatherByCityId(cityId);
-        Weather weather = response.getData();
+        ResultActions resultActions = mockMvc.perform(get("/api/weather/{city_id}", testCityId));
 
         // Then
-        var expected = "Sunny";
-        var actual = weather.getCondition();
-        var expectedTemp = 25;
-        var actualTemp = weather.getTemperature();
-
-        assertEquals(expected, actual);
-        assertEquals(expectedTemp, actualTemp);
-        assertNull(response.getErrorMessage());
-
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.condition").value("Sunny"))
+                .andExpect(jsonPath("$.data.temperature").value("30"));
     }
 }
-
-
-

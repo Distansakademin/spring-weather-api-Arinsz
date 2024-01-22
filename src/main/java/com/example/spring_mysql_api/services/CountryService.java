@@ -25,10 +25,6 @@ public class CountryService {
     public ApiResponse<Country> createCountry(Country country) {
         try {
 
-            if (country == null) {
-                return new ApiResponse<>(null, "Country creation failed. Input data is null.");
-            }
-
             Country savedCountry = countryRepository.save(country);
             return new ApiResponse<>(savedCountry, null);
 

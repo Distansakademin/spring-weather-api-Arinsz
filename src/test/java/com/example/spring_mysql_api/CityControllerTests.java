@@ -2,113 +2,132 @@ package com.example.spring_mysql_api;
 import com.example.spring_mysql_api.entities.City;
 import com.example.spring_mysql_api.utilitys.ApiResponse;
 import com.example.spring_mysql_api.services.*;
-import com.example.spring_mysql_api.controllers.CityController;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import java.util.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class CityControllerTests {
 
-    @Mock
-    CityService cityService;
-
-    @InjectMocks
-    CityController cityController;
+    @MockBean
+    private CityService cityService;
 
 
-    @Test
-    public void testCreateCity() {
+    @Autowired
+    private MockMvc mockMvc;
 
-        //Given
-        City expectedCity = new City(1L, "Stockholm");
-        when(cityService.createCity(expectedCity, 1L)).thenReturn(new ApiResponse<>(expectedCity, null));
-
-        //When
-        ResponseEntity<ApiResponse<City>> responseEntity = cityController.createCity(1L, expectedCity);
-
-        var actualCity = Objects.requireNonNull(responseEntity.getBody()).getData();
-
-        //Then
-        assertEquals(expectedCity, actualCity);
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-
-    }
-
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
-    public void testGetCityById() {
-
-        City expectedCity = new City(1L, "Stockholm");
-        when(cityService.getCityById(1L)).thenReturn(new ApiResponse<>(expectedCity, null));
-
-        ResponseEntity<ApiResponse<City>> responseEntity = cityController.getCityById(1L);
-
-        var actualCity = Objects.requireNonNull(responseEntity.getBody()).getData();
-
-        assertEquals(expectedCity, actualCity);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-
-    }
-
-
-    @Test
-    public void testGetAllCities() {
+    public void testCreateCity() throws Exception {
         // Given
-        City city1 = new City(1L, "Stockholm");
-        City city2 = new City(2L, "Oslo");
-        List<City> expectedCities = Arrays.asList(city1, city2);
+        Long testCountryId = 1L;
+        City testCity = new City(1L, "Halmstad");
 
-        when(cityService.getAllCities()).thenReturn(new ApiResponse<>(expectedCities, null));
+        // Mock the service response
+        when(cityService.createCity(any(), eq(testCountryId))).thenReturn(new ApiResponse<>(testCity, null));
 
         // When
-        ResponseEntity<ApiResponse<List<City>>> responseEntity = cityController.getAllCitys();
-        List<City> actualCities = Objects.requireNonNull(responseEntity.getBody()).getData();
+        ResultActions resultActions = mockMvc.perform(post("/api/cities/create/{countryId}", testCountryId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(testCity)));
 
         // Then
-        assertEquals(expectedCities, actualCities);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
+        resultActions.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.data.cityName").value("Halmstad"));
     }
 
     @Test
-    public void updateCity() {
-
+    public void testGetCityById() throws Exception {
         // Given
-        City expectedCity = new City(1L, "Stockholm");
-        when(cityService.updateCity(1L, expectedCity)).thenReturn(new ApiResponse<>(expectedCity, null));
+        Long testCityId = 1L;
+        City testCity = new City(testCityId, "Halmstad");
 
-        //When
-        ResponseEntity<ApiResponse<City>> actualCity = cityController.updateCity(1L, expectedCity);
+        // Mock the service response
+        when(cityService.getCityById(testCityId)).thenReturn(new ApiResponse<>(testCity, null));
 
-        assertEquals(expectedCity, Objects.requireNonNull(actualCity.getBody()).getData());
-        assertEquals(HttpStatus.OK, actualCity.getStatusCode());
-        assertNotNull(actualCity.getBody());
-    }
-
-
-    @Test
-    public void testDeleteCityById() {
-
-        // Given
-        Long cityId = 1L;
-        City city = new City(cityId, "Stockholm");
-        when(cityService.deleteCityById(cityId)).thenReturn(new ApiResponse<>(null, null));
-
-        //When
-        ResponseEntity<ApiResponse<Void>> actualResponseEntity = cityController.deleteCityById(cityId);
-
+        // When
+        ResultActions resultActions = mockMvc.perform(get("/api/cities/{id}", testCityId));
 
         // Then
-        assertEquals(HttpStatus.OK, actualResponseEntity.getStatusCode());
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.cityName").value("Halmstad"));
+    }
+
+    @Test
+    public void testGetAllCities() throws Exception {
+        // Given
+        List<City> testCities = Arrays.asList(new City(1L, "Halmstad1"), new City(2L, "Halmstad2"));
+
+        // Mock the service response
+        when(cityService.getAllCities()).thenReturn(new ApiResponse<>(testCities, null));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get("/api/cities/getAll"));
+
+        // Then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].cityName").value("Halmstad1"))
+                .andExpect(jsonPath("$.data[1].cityName").value("Halmstad2"));
+    }
+
+    @Test
+    public void testUpdateCity() throws Exception {
+
+
+        // Given
+        Long testCityId = 1L;
+        City testCity = new City(testCityId, "Halmstad1");
+        City updatedCity = new City(testCityId, "Halmstad2");
+
+        // Mock the service response
+        when(cityService.updateCity(eq(testCityId), any())).thenReturn(new ApiResponse<>(updatedCity, null));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(put("/api/cities/{id}", testCityId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updatedCity)));
+
+        // Then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.cityName").value("Halmstad2"));
+
 
     }
 
+    @Test
+    public void testDeleteCityById() throws Exception {
+
+
+        // Given
+        Long testCityId = 1L;
+
+        // Mock the service response
+        when(cityService.deleteCityById(testCityId)).thenReturn(new ApiResponse<>(null, null));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(delete("/api/cities/{id}", testCityId));
+
+        // Then
+        resultActions.andExpect(status().isOk());
+
+
+    }
 }
+

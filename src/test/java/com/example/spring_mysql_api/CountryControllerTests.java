@@ -1,147 +1,149 @@
 package com.example.spring_mysql_api;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import com.example.spring_mysql_api.entities.*;
 import com.example.spring_mysql_api.utilitys.ApiResponse;
 import com.example.spring_mysql_api.services.*;
-import com.example.spring_mysql_api.controllers.*;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import java.util.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class CountryControllerTests {
 
-    @Mock
+
+    @MockBean
     private CountryService countryService;
 
-    @InjectMocks
-    private CountryController countryController;
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
     @Test
-    public void testCreateCountry() {
-
-        //Given
-        Country testCountry = new Country();
-        when(countryService.createCountry(testCountry)).thenReturn(new ApiResponse<>(testCountry, null));
-
-        //When
-        ResponseEntity<ApiResponse<Country>> responseEntity = countryController.createCountry(testCountry);
-
-        //Then
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-        assertEquals(testCountry, responseEntity.getBody().getData());
-
-    }
-
-    @Test
-    public void testGetCountryById() {
+    public void testCreateCountry() throws Exception {
 
         // Given
+        Country testCountry = new Country(1L, "Sweden");
+
+        // Mock the service response
+        when(countryService.createCountry(any())).thenReturn(new ApiResponse<>(testCountry, null));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(post("/api/countries/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(testCountry)));
+
+        // Then
+        resultActions.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.data.countryName").value("Sweden"));
+
+        // Verify that the service method was called with the correct argument
+        verify(countryService, times(1)).createCountry(any());
+    }
+
+
+    @Test
+    public void testGetCountryById() throws Exception {
+        // Given
         Long testCountryId = 1L;
-        Country testCountry = new Country();
+        Country testCountry = new Country(1L, "Sweden");
         when(countryService.getCountryById(testCountryId)).thenReturn(new ApiResponse<>(testCountry, null));
 
         // When
-        ResponseEntity<ApiResponse<Country>> responseEntity = countryController.getCountryById(testCountryId);
+        ResultActions resultActions = mockMvc.perform(get("/api/countries/{id}", testCountryId));
 
         // Then
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-        assertEquals(testCountry, responseEntity.getBody().getData());
-
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.countryName").value("Sweden"));
     }
 
     @Test
-    public void testGetAllCountries() {
-
+    public void testGetAllCountries() throws Exception {
         // Given
-        List<Country> testCountries = Arrays.asList(new Country(), new Country()); // Create test countries
+        List<Country> testCountries = Arrays.asList(new Country(1L, "Country1"), new Country(2L, "Country2"));
         when(countryService.getAllCountries()).thenReturn(new ApiResponse<>(testCountries, null));
 
         // When
-        ResponseEntity<ApiResponse<List<Country>>> responseEntity = countryController.getAllCountries();
+        ResultActions resultActions = mockMvc.perform(get("/api/countries/getAll"));
 
         // Then
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-        assertEquals(testCountries, responseEntity.getBody().getData());
-        verify(countryService, times(1)).getAllCountries();
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].countryName").value("Country1"))
+                .andExpect(jsonPath("$.data[1].countryName").value("Country2"));
     }
 
     @Test
-    public void testUpdateCountry() {
+    public void testUpdateCountry() throws Exception {
 
+        //Given
+        Long testCountryId = 1L;
+        Country testCountry = new Country(testCountryId, "Sweden");
+        Country updatedCountry = new Country(testCountryId, "NewCountryName");
+
+
+        // Mock the service response for updateCountry
+        when(countryService.updateCountry(eq(testCountryId), any())).thenReturn(new ApiResponse<>(updatedCountry, null));
+
+
+        //When
+        ResultActions resultActions = mockMvc.perform(put("/api/countries/{id}",
+                testCountryId).contentType(MediaType.APPLICATION_JSON).
+                content(objectMapper.writeValueAsString(updatedCountry)));
+
+        //Then
+        resultActions.andExpect(status().isOk()).andExpect(jsonPath("$.data.countryName").value("NewCountryName"));
+
+    }
+
+    @Test
+    public void testDeleteCountryById() throws Exception {
         // Given
-        Long countryId = 1L;
-        String updatedCountryName = "UpdatedCountryName";
-        Country updatedCountry = new Country(countryId, updatedCountryName);
+        Long testCountryId = 1L;
 
-        // Mock the service method to return the updated country
-        when(countryService.updateCountry(eq(countryId), any(Country.class)))
-                .thenReturn(new ApiResponse<>(updatedCountry, null));
+        // Mock the service response for deleteCountryById
+        when(countryService.deleteCountryById(testCountryId)).thenReturn(new ApiResponse<>(null, null));
 
         // When
-        ResponseEntity<ApiResponse<Country>> updateResponseEntity = countryController.updateCountry
-                (countryId, new Country());
-
-        var actualCountryName = Objects.requireNonNull(updateResponseEntity.getBody()).getData().getCountryName();
+        ResultActions resultActions = mockMvc.perform(delete("/api/countries/{id}", testCountryId));
 
         // Then
-        assertEquals(HttpStatus.OK, updateResponseEntity.getStatusCode());
-        assertNotNull(updateResponseEntity.getBody());
-        assertEquals(updatedCountryName, actualCountryName);
-        verify(countryService, times(1)).updateCountry(eq(countryId), any(Country.class));
-    }
-
-
-    @Test
-    void testDeleteCountryById() {
-        // Given
-        Long countryId = 1L;
-
-        // Mock the service method to return a successful ApiResponse<Void>
-        when(countryService.deleteCountryById(countryId)).thenReturn(new ApiResponse<>(null, null));
-
-        // When
-        ResponseEntity<ApiResponse<Void>> responseEntity = countryController.deleteCountryById(countryId);
-
-        // Then
-        assertNotNull(responseEntity.getBody());
-        assertNull(responseEntity.getBody().getData());
-        assertNull(responseEntity.getBody().getErrorMessage());
-
+        resultActions.andExpect(status().isOk());
 
     }
 
     @Test
-    void testGetCitiesInCountry() {
+    public void testGetCitiesInCountry() throws Exception {
 
         // Given
         String testCountryName = "Sweden";
-        List<City> testCities = Arrays.asList(new City(1L, "Stockholm"), new City(2L, "Malmo"));
-        when(countryService.getCitiesInCountry(testCountryName)).thenReturn(new ApiResponse<>(testCities, null));
+        List<City> testCities = Arrays.asList(new City(1L, "Stockholm"), new City(2L, "Malmö"));
+
+        // Mock the service response for getCitiesInCountry
+        when(countryService.getCitiesInCountry(eq(testCountryName))).thenReturn(new ApiResponse<>(testCities, null));
 
         // When
-        ResponseEntity<ApiResponse<List<City>>> responseEntity = countryController.getCitiesInCountry(testCountryName);
+        ResultActions resultActions = mockMvc.perform(get("/api/{country}/cities", testCountryName));
 
         // Then
-        var actual = Objects.requireNonNull(responseEntity.getBody()).getData();
-
-        assertEquals(testCities, actual);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].cityName").value("Stockholm"))
+                .andExpect(jsonPath("$.data[1].cityName").value("Malmö"));
 
     }
+
 }
-
-
-
-

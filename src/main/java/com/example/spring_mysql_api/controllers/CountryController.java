@@ -24,12 +24,15 @@ public class CountryController {
 
     @PostMapping("/countries/create")
     public ResponseEntity<ApiResponse<Country>> createCountry(@RequestBody Country country) {
-
         ApiResponse<Country> response = countryService.createCountry(country);
-        if (response.getData() != null) {
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        if (response != null) {  // Check if the response is not null
+            if (response.getData() != null) {
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse<>(null, "Internal server error occurred."), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
