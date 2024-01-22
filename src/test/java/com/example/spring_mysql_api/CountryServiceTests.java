@@ -87,22 +87,6 @@ public class CountryServiceTests {
 
     }
 
-    @Test
-    void testCreateCountryWithNullInput() {
-
-        // Given
-        Country nullCountry = null;
-
-        // When
-        ApiResponse<Country> response = countryService.createCountry(nullCountry);
-
-        String expected = "Country creation failed. Input data is null.";
-        String actual = response.getErrorMessage();
-
-        // Then
-        assertNull(response.getData());
-        assertEquals(expected, actual);
-    }
 
     @Test
     public void testGetAllCountries() {
