@@ -1,9 +1,12 @@
 package com.example.spring_mysql_api.entities;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
 
 @Entity
 public class Country {
+
 
 
 

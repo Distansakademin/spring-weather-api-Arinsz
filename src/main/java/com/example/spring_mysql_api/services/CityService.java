@@ -2,6 +2,7 @@ package com.example.spring_mysql_api.services;
 import com.example.spring_mysql_api.repositories.*;
 import com.example.spring_mysql_api.entities.*;
 import com.example.spring_mysql_api.utilitys.ApiResponse;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class CityService {
 
     public ApiResponse<City> createCity(City city, Long countryId) {
         try {
+
+            if (StringUtils.isBlank(city.getCityName())) {
+                return new ApiResponse<>(null, "City creation failed. Name cannot be blank.");
+            }
+
             Optional<Country> countryOptional = countryRepository.findById(countryId);
 
             if (countryOptional.isPresent()) {
@@ -72,6 +78,11 @@ public class CityService {
     }
 
     public ApiResponse<City> updateCity(Long id, City updatedCity) {
+
+        if (StringUtils.isBlank(updatedCity.getCityName())) {
+            return new ApiResponse<>(null, "City update failed. Name cannot be blank.");
+        }
+
         try {
             return updateCityIfExists(id, updatedCity);
         } catch (DataIntegrityViolationException e) {

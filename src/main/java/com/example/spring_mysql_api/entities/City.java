@@ -18,7 +18,6 @@ public class City {
 
 
 
-    @NotBlank
     @Column(unique = true)
     private String cityName;
 

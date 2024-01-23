@@ -2,6 +2,7 @@ package com.example.spring_mysql_api.services;
 import com.example.spring_mysql_api.repositories.*;
 import com.example.spring_mysql_api.entities.*;
 import com.example.spring_mysql_api.utilitys.ApiResponse;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -25,17 +26,22 @@ public class CountryService {
     public ApiResponse<Country> createCountry(Country country) {
         try {
 
+            if (StringUtils.isBlank(country.getCountryName())) {
+                return new ApiResponse<>(null, "Country creation failed. Name cannot be blank.");
+            }
+
             Country savedCountry = countryRepository.save(country);
             return new ApiResponse<>(savedCountry, null);
 
         } catch (DataIntegrityViolationException e) {
             return new ApiResponse<>(null, "Country creation failed. Duplicate entry or invalid data.");
         } catch (Exception e) {
-            return new ApiResponse<>(null, "Internal server error occurred.");
+            return new ApiResponse<>(null, "Internal server error occurred");
         }
     }
 
     public ApiResponse<Country> getCountryById(Long id) {
+
 
         try {
             Optional<Country> countryToGet = countryRepository.findById(id);
@@ -44,7 +50,7 @@ public class CountryService {
                     -> new ApiResponse<>(null, "Country not found for id:" + id));
 
         } catch (Exception e) {
-            return new ApiResponse<>(null, "Internal server error occurred.");
+            return new ApiResponse<>(null, "Internal server error occurred .");
         }
 
     }
@@ -69,6 +75,11 @@ public class CountryService {
     }
 
     public ApiResponse<Country> updateCountry(Long id, Country updatedCountry) {
+
+        if (StringUtils.isBlank(updatedCountry.getCountryName())) {
+            return new ApiResponse<>(null, "Country update failed. Name cannot be blank.");
+        }
+
         try {
             return updateCountryIfExists(id, updatedCountry);
         } catch (DataIntegrityViolationException e) {
