@@ -1,11 +1,12 @@
 package com.example.spring_mysql_api.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class City {
 
-    @JsonIgnore
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "country_id")
     private Country country;
@@ -14,8 +15,13 @@ public class City {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
+
+
+    @NotBlank
     @Column(unique = true)
     private String cityName;
+
 
 
     public City() {

@@ -7,8 +7,15 @@ public class Country {
 
 
 
-    @Column(unique = true) // unique constraint so duplicate countries can't be created.
+    @Column(unique = true)
     private String countryName;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    private List<City> cities;
 
 
     public Country() {
@@ -21,12 +28,6 @@ public class Country {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<City> cities;
 
 
     public List<City> getCities() {

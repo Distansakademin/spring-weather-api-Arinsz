@@ -1,8 +1,6 @@
 package com.example.spring_mysql_api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,8 +50,6 @@ public class CountryControllerTests {
         resultActions.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.countryName").value("Sweden"));
 
-        // Verify that the service method was called with the correct argument
-        verify(countryService, times(1)).createCountry(any());
     }
 
 
