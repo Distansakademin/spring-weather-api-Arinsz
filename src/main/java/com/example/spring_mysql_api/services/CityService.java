@@ -28,13 +28,11 @@ public class CityService {
                 return new ApiResponse<>(null, "City creation failed. Name cannot be blank.");
             }
 
+
             Optional<Country> countryOptional = countryRepository.findById(countryId);
-
             if (countryOptional.isPresent()) {
-
                 city.setCountry(countryOptional.get());
                 City savedCity = cityRepository.save(city);
-
 
                 return new ApiResponse<>(savedCity, null);
             } else {

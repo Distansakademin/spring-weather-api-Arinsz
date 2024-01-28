@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 public class City {
 
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "country_id")
     private Country country;

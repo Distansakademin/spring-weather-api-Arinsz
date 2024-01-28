@@ -184,7 +184,7 @@ Man kan använda detta koncept till en större projektstruktur (Single Responsib
 
 - Använd verktyg som Postman för att skicka HTTP-förfrågningar.
 - Använd MySQL för att starta en SQL server.
-- Ändra application.properties datasource, till inställningar som fungerar för SQL servern.
+- Ändra application.properties datasource, till inställningar som är anpassade för din SQL server.
 
 
 #### <u>Skapat av: Arin Sarafraz </u>
