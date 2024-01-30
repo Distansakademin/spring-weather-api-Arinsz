@@ -27,7 +27,7 @@ public class CountryController {
 
         ApiResponse<Country> response = countryService.createCountry(country);
 
-        if (response != null) {  // Check if the response is not null
+        if (response != null) {
             if (response.getData() != null) {
                 return new ResponseEntity<>(response, HttpStatus.CREATED);
             } else {
